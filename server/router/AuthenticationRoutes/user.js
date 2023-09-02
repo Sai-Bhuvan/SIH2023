@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const Login = require("../../cotrollers/Authentication/UserAuth/Login");
 const Registration = require("../../cotrollers/Authentication/UserAuth/Registration");
+const Verify = require("../../cotrollers/Verify/verify");
 const passport = require("passport");
 const catchAsync = require("../../utilities/CatchAsync");
+const { isVerified } = require("../../middleware");
 
 router
   .route("/login")
@@ -19,7 +21,9 @@ router
 router
   .route("/register")
   .get(Registration.renderRegister)
-  .post(catchAsync(Registration.register));
+  .post(isVerified, catchAsync(Registration.register));
+
+router.route("/verify").post(catchAsync(Verify.verify));
 
 router.route("/logout").get(Login.logout);
 

@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 const dbUrl = process.env.MONGODB_URL;
 const mongoose = require("mongoose");
-const User = require("./module/user");
+const User = require("./models/user");
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -19,6 +19,10 @@ const populator = async () => {
   let user = new User({
     email: "nags2@gmail.com",
     username: "nagaraj2",
+    contact: {
+      country_code: "+91",
+      phone_no: "12345678888889",
+    },
   });
   user.save();
 };

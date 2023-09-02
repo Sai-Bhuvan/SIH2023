@@ -1,5 +1,5 @@
 const express = require("express");
-const User = require("../../../module/user");
+const User = require("../../../models/user");
 
 module.exports.renderLogin = (req, res) => {
   res.render("login");

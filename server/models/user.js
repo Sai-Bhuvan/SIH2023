@@ -8,7 +8,24 @@ const UserSchema = new Schema({
     require: true,
     unique: true,
   },
-  username: String,
+  username: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  contact: {
+    country_code: {
+      type: String,
+      require: true,
+      unique: true,
+    },
+    phone_no: {
+      type: String,
+      require: true,
+      unique: true,
+    },
+  },
+  age : Number,
 });
 
 UserSchema.plugin(passportLocalMongoose);

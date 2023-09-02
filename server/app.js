@@ -14,7 +14,7 @@ const mongoose = require("mongoose");
 const MongoStore = require("connect-mongo");
 const path = require("path");
 const ejsMate = require("ejs-mate");
-const User = require("./module/user");
+const User = require("./models/user");
 
 //setting view engine
 app.engine("ejs", ejsMate);
