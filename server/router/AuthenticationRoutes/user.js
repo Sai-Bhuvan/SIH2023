@@ -17,7 +17,6 @@ router.route("/user/login").post(
 
 router
   .route("/user/register")
-  .get(Registration.renderRegister)
   .post(isVerified, catchAsync(Registration.register));
 
 router.route("/verify").post(catchAsync(Verify.verify));

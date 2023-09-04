@@ -36,14 +36,8 @@
     </style>
   </head>
   <body>
-    <div id="rain"></div>
+    <div id="map"></div>
 
-    <iframe
-      width="350"
-      height="430"
-      allow="microphone;"
-      src="https://console.dialogflow.com/api-client/demo/embedded/7130a9d5-5926-40a1-ab4c-732d73178eab"
-    ></iframe>
     <script>
       // add the JavaScript here
     </script>
@@ -67,7 +61,7 @@
     mapboxgl.accessToken =
       "pk.eyJ1IjoibmFnYXJhai1wb29qYXJpIiwiYSI6ImNsOGw1M3d6ZjF3bmIzdXF4dzJzbDI0OXMifQ.YKQSwfcvRCUlD4Vx0pKpyQ";
     const map = new mapboxgl.Map({
-      container: "rain",
+      container: "map",
       style: "mapbox://styles/mapbox/streets-v12",
       center: [77.56, 12], // starting position
       zoom: 12,
