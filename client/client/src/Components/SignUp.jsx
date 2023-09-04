@@ -7,6 +7,7 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpass, setconfirmpass] = useState("");
+
   const [mobileno, setmobileno] = useState();
   const [disablecheck, setdisablecheck] = useState(true);
   const [authotp, setauthotp] = useState();
@@ -116,7 +117,7 @@ function SignUp() {
               <input
                 type="number"
                 className="rounded-md p-2 border  border-cyan-700 w-60"
-                placeholder="enter your mobile no"
+                placeholder="enter OTP"
                 value={authotp}
                 onChange={(event) => setauthotp(event.target.value)}
               ></input>
