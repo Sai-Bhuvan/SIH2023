@@ -7,7 +7,7 @@ function Map() {
   mapboxgl.accessToken =
     "pk.eyJ1IjoibmFnYXJhai1wb29qYXJpIiwiYSI6ImNsOGw1M3d6ZjF3bmIzdXF4dzJzbDI0OXMifQ.YKQSwfcvRCUlD4Vx0pKpyQ";
 
-  const mapContainer = useRef(null);
+  const mapContainer = useRef("map-container");
   const map = useRef(null);
   const [lng, setLng] = useState(76);
   const [lat, setLat] = useState(14);
@@ -161,7 +161,10 @@ function Map() {
 
   return (
     <div>
-      <div>hello</div>
+      <div className="sidebar">
+        Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+      </div>
+      <div ref={mapContainer} className="map-container" />
     </div>
   );
 }
