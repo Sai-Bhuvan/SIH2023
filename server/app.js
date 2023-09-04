@@ -26,7 +26,7 @@ app.use(urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //connecting to database
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 const dbUrl =
   process.env.MONGODB_URL || "mongodb://localhost:27017/template-db";
 
@@ -84,6 +84,9 @@ const userAuthRoutes = require("./router/AuthenticationRoutes/user");
 const rescuerAuthRoutes = require("./router/AuthenticationRoutes/rescuer");
 app.use("/auth", userAuthRoutes);
 app.use("/auth", rescuerAuthRoutes);
+
+const rescueCentersDataRoutes = require("./router/rescueData");
+app.use("/", rescueCentersDataRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
