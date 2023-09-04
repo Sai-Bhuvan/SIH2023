@@ -19,9 +19,8 @@ module.exports.verify = async (req, res) => {
       from: "+1 984 355 8631",
       to: userPhoneNumber,
     })
-    .then((message) => console.log(`Message sent: ${message.sid}`))
-    .catch((error) => console.error(`Error sending message: ${error.message}`));
-  res.send("hi");
+    .then((message) => res.send({ message: "Verification code sent" }))
+    .catch((error) => res.send({ message: "please check your phone number" }));
 };
 
 const generateVerification = () => {
