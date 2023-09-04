@@ -25,7 +25,6 @@ app.use(urlencoded({ extended: true }));
 //setting body parser
 app.use(bodyParser.json());
 
-//connecting to database
 const port = process.env.PORT || 8080;
 const dbUrl =
   process.env.MONGODB_URL || "mongodb://localhost:27017/template-db";
@@ -71,14 +70,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.post("/", (req, res) => {
-  console.log(req.body.session);
-
-  req.flash("success", "hi");
-
-  res.send({ message: "hi" });
-});
-
 //routes
 const userAuthRoutes = require("./router/AuthenticationRoutes/user");
 const rescuerAuthRoutes = require("./router/AuthenticationRoutes/rescuer");
@@ -87,10 +78,6 @@ app.use("/auth", rescuerAuthRoutes);
 
 const rescueCentersDataRoutes = require("./router/rescueData");
 app.use("/", rescueCentersDataRoutes);
-
-app.get("/", (req, res) => {
-  res.render("home");
-});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
