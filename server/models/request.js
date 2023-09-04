@@ -1,17 +1,20 @@
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const passportLocalMongoose = require("passport-local-mongoose");
-
-const RescueSchema = new mongoose.Schema(
+const RequestSchema = new Schema(
   {
-    email: {
-      type: String,
+    rescuer: {
+      type: Schema.Types.ObjectId,
       require: true,
-      unique: true,
+      ref: "Rescuer",
     },
-    centername: {
-      type: String,
-      require: true,
+    team_member: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
     },
     location: {
       type: {
@@ -24,9 +27,7 @@ const RescueSchema = new mongoose.Schema(
         required: true,
       },
     },
-    address: String,
     description: String,
-
     capacity: {
       type: Number,
       require: true,
@@ -42,12 +43,6 @@ const RescueSchema = new mongoose.Schema(
           "transportation",
         ],
         require: true,
-      },
-    ],
-    availability: [
-      {
-        type: [String],
-        enum: ["almost full", "available", "full", "temporarily unavailable"],
       },
     ],
     specialization: [
@@ -98,21 +93,13 @@ const RescueSchema = new mongoose.Schema(
         ],
       },
     ],
-    contact: {
-      country_code: {
-        type: String,
-        require: true,
-      },
-      phone_no: {
-        type: String,
-        require: true,
-        unique: true,
-      },
+    status: {
+      type: String,
+      default: "pending",
+      enum: ["pending", "resolved"],
     },
   },
   { timestamps: true }
 );
 
-RescueSchema.plugin(passportLocalMongoose);
-RescueSchema.index({ location: "2dsphere" });
-module.exports = mongoose.model("Rescuer", RescueSchema);
+module.exports = mongoose.model("Request", RequestSchema);

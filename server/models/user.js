@@ -17,7 +17,6 @@ const UserSchema = new Schema({
     country_code: {
       type: String,
       require: true,
-      unique: true,
     },
     phone_no: {
       type: String,
@@ -25,7 +24,11 @@ const UserSchema = new Schema({
       unique: true,
     },
   },
-  age : Number,
+  rescue_team: {
+    type: Schema.Types.ObjectId,
+    ref: "Rescuer",
+  },
+  age: Number,
 });
 
 UserSchema.plugin(passportLocalMongoose);

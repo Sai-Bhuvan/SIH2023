@@ -4,6 +4,7 @@ if (process.env.NODE_ENV !== "production") {
 const dbUrl = process.env.MONGODB_URL;
 const mongoose = require("mongoose");
 const User = require("./models/user");
+const Rescuer = require("./models/rescue");
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -15,16 +16,43 @@ db.once("open", () => {
 });
 
 const populator = async () => {
-  await User.deleteMany({});
-  let user = new User({
-    email: "nags2@gmail.com",
-    username: "nagaraj2",
+  await Rescuer.deleteMany({});
+  let rescuer = new Rescuer({
+    email: "whatsup@gmail.com",
+    centername: "nothing",
+    location: {
+      type: "Point",
+      coordinates: [100.21, 24.34],
+    },
+    address: "bangalotre",
+    description: "oh my good",
+    capacity: 193,
+    services: ["counseling", "food and water"],
+    availability: ["almost full"],
+    specialization: ["fire response", "medical"],
+
+    medical_facility: [
+      "basic first aid",
+      "intensive care units",
+      "pediatric care",
+    ],
+
+    supply_and_resource: [
+      "limited supplies",
+      "medical equipment available",
+      "pharmaceuticals available",
+      "well-stocked",
+    ],
+
+    calamities: ["earthquake", "fire"],
+
     contact: {
       country_code: "+91",
-      phone_no: "12345678888889",
+      phone_no: "90232365376",
     },
   });
-  user.save();
+
+  await rescuer.save();
 };
 
 populator();

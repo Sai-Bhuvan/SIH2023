@@ -1,13 +1,15 @@
 
-
 POST http://localhost:3000/auth/register
 content-type: application/json
 
 {
+    "email":"nagaraj@gmail.com",
+    "username":"developer",
+    "password":"heyThis",
     "contact":{
         "country_code":"+91",
         "phone_no":"7019096676"
     },
-    "verCode":"101422"
+    "verCode":"669379"
 }
 

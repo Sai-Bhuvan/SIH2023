@@ -10,9 +10,7 @@ module.exports.isloggedin = (req, res, next) => {
 
 module.exports.isVerified = (req, res, next) => {
   const verCode = req.body.verCode;
-  if (verCode !== session.verificationCode) {
+  if (verCode != session.verificationCode) {
     res.send("oops");
-  }
-  res.send("succesfully signed up");
-  next();
+  } else next();
 };

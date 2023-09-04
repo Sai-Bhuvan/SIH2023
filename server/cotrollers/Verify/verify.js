@@ -9,8 +9,7 @@ const authToken = process.env.TWILIO_ACCESS_TOKEN;
 const client = twilio(accountSid, authToken);
 
 module.exports.verify = async (req, res) => {
-  const userPhoneNumber =
-    req.body.contact.country_code + req.body.contact.phone_no;
+  const userPhoneNumber = req.body.country_code + req.body.phone_no;
   const verificationCode = generateVerification();
   console.log(verificationCode);
   session.verificationCode = verificationCode;
