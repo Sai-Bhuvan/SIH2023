@@ -1,9 +1,5 @@
 const Rescuer = require("../../../models/rescue");
 
-module.exports.renderRegister = (req, res) => {
-  res.render("register");
-};
-
 module.exports.register = async (req, res) => {
   try {
     const {

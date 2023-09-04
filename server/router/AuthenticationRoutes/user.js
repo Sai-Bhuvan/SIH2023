@@ -7,16 +7,13 @@ const passport = require("passport");
 const catchAsync = require("../../utilities/CatchAsync");
 const { isVerified } = require("../../middleware");
 
-router
-  .route("/user/login")
-  .get(Login.renderLogin)
-  .post(
-    passport.authenticate("local", {
-      failureFlash: true,
-      failureRedirect: "/",
-    }),
-    Login.login
-  );
+router.route("/user/login").post(
+  passport.authenticate("local", {
+    failureFlash: true,
+    failureRedirect: "/",
+  }),
+  Login.login
+);
 
 router
   .route("/user/register")
@@ -25,6 +22,6 @@ router
 
 router.route("/verify").post(catchAsync(Verify.verify));
 
-router.route("/rescuer/logout").get(Login.logout);
+router.route("/user/logout").get(Login.logout);
 
 module.exports = router;

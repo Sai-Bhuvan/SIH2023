@@ -1,10 +1,6 @@
 const express = require("express");
 const Rescuer = require("../../../models/rescue");
 
-module.exports.renderLogin = (req, res) => {
-  res.render("login");
-};
-
 module.exports.login = async (req, res) => {
   res.redirect("/");
 };
