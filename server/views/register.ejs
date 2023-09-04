@@ -1,0 +1,52 @@
+<% layout('layouts/boilerplate')%>
+
+<form action="/auth/register" method="POST" class="needs-validation" novalidate>
+  <div class="mb-3">
+    <label class="form-label" for="username">Username</label>
+    <input
+      class="form-control"
+      type="text"
+      id="username"
+      name="username"
+      autofocus
+      required
+    />
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="email">Email</label>
+    <input class="form-control" type="email" name="email" value="" required />
+    <div class="valid-feedback">looks good</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="country_code">Country code</label>
+    <input
+      class="form-control"
+      type="text"
+      name="country_code"
+      value=""
+      required
+    />
+    <label class="form-label" for="phone_no">phone no</label>
+    <input class="form-control" type="text" name="phone_no" value="" required />
+    <input class="form-control" type="text" name="verCode" value="" required />
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="password">Password</label>
+    <input
+      class="form-control"
+      type="password"
+      id="password"
+      name="password"
+      required
+    />
+    <div class="valid-feedback">Looks good!</div>
+  </div>
+  <button class="btn btn-success btn-block">register</button>
+</form>
+
+<form action="/auth/verify" method="post">
+  <input type="text" name="country_code" />
+  <input type="text" name="phone_no" />
+  <button type="submit">send</button>
+</form>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Getting started with the Mapbox Directions API</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/mapbox-gl-rain-layer@latest/dist/mapbox-gl-rain-layer.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+      #instructions {
+        position: absolute;
+        margin: 20px;
+        width: 25%;
+        top: 0;
+        bottom: 20%;
+        padding: 20px;
+        background-color: #fff;
+        overflow-y: scroll;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+
+    <script>
+      // add the JavaScript here
+    </script>
+  </body>
+
+  <script>
+    const rainLayer = new RainLayer({
+      id: "rain",
+      source: "rainviewer",
+      scale: "noaa",
+    });
+
+    // You can get the HTML text for the legend
+    const legendHTML = rainLayer.getLegendHTML();
+
+    // You can receive radar data refresh events
+    // data.timestamp - Unix timestamp in seconds (UTC) when the data was generated
+    rainLayer.on("refresh", (data) => {
+      console.log(data.timestamp);
+    });
+    mapboxgl.accessToken =
+      "pk.eyJ1IjoibmFnYXJhai1wb29qYXJpIiwiYSI6ImNsOGw1M3d6ZjF3bmIzdXF4dzJzbDI0OXMifQ.YKQSwfcvRCUlD4Vx0pKpyQ";
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: "mapbox://styles/mapbox/streets-v12",
+      center: [77.56, 12], // starting position
+      zoom: 12,
+    });
+
+    map.addLayer(rainLayer);
+    // set the bounds of the map
+  </script>
+</html>
