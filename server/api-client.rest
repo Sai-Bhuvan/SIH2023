@@ -1,28 +1,2 @@
 
-POST http://localhost:3000/auth/rescuer/register
-content-type: application/json
-
-{
-    "email":"nagaraj@gmail.com",
-    "username":"developer",
-    "password":"heyThis",
-
-        "country_code":"+91",
-        "phone_no":"7019096676",
-    "location":{
-            "type":"Point",
-            "coordinates":[11,122]
-        },
-        "severity":["high"],
-        "capacity":192,
-        "services":["medical","counseling","transportation"],
-        "availability":["available"],
-        "specialization":["medical"],
-        "medical_facility":["intensive care units"],
-        "supply_and_resource":["limited supplies"],
-        "calamities":["flood"],
-
-    "address":"nothign here",
-    "description":"npt"
-}
-
+GET  http://localhost:8080/rescuecenters
