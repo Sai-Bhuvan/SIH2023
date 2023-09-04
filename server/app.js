@@ -81,7 +81,9 @@ app.post("/", (req, res) => {
 
 //routes
 const userAuthRoutes = require("./router/AuthenticationRoutes/user");
+const rescuerAuthRoutes = require("./router/AuthenticationRoutes/rescuer");
 app.use("/auth", userAuthRoutes);
+app.use("/auth", rescuerAuthRoutes);
 
 app.get("/", (req, res) => {
   res.render("home");
