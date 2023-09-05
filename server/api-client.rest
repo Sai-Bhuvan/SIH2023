@@ -1,2 +1,7 @@
 
-GET  http://localhost:8080/rescue/dashboard/req/64f59c6f51293d3c20026044
+POST  http://localhost:4000/auth/verify
+Content-Type: application/json
+
+{
+
+}
