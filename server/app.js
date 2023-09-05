@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
 }
-
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const { urlencoded } = require("express");
@@ -16,6 +16,14 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const User = require("./models/user");
 
+const corsOptions = {
+  origin: "http://localhost:3000", // Set the correct origin
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
+  credentials: true, // Enable CORS with credentials (e.g., cookies)
+};
+
+app.use(cors(corsOptions));
 //setting view engine
 app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
@@ -25,8 +33,9 @@ app.use(urlencoded({ extended: true }));
 //setting body parser
 app.use(bodyParser.json());
 
-const port = process.env.PORT || 8080;
-const dbUrl = process.env.MONGODB_URL;
+const port = process.env.PORT || 4000;
+const dbUrl =
+  process.env.MONGODB_URL || "mongodb://localhost:27017/template-db";
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
