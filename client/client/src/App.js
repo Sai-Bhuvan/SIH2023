@@ -38,7 +38,7 @@ export default function App() {
           element={<RescueRegister options={optionsSet1} />}
         />
 
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<RescueRegister />} />
       </Routes>
     </Router>
   );

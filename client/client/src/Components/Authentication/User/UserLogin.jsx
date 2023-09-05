@@ -17,6 +17,10 @@ function UserLogin() {
   async function handleLogin(event) {
     event.preventDefault();
 
+    if (!username || !password) {
+      alert("enter details properly");
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:4000/auth/user/login",

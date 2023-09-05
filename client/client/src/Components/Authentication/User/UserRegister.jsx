@@ -38,6 +38,19 @@ function UserRegister() {
     }
   }
   async function signup(event) {
+    if (
+      !email ||
+      !password ||
+      !phoneNo ||
+      !username ||
+      !authotp ||
+      !countryCode ||
+      !rescueTeamId
+    ) {
+      event.preventDefault();
+      alert("enter all the details correctly");
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:4000/auth/user/register",
@@ -181,7 +194,7 @@ function UserRegister() {
             type="submit"
             className="mx-auto"
             disabled={disablecheck}
-            onClick={(e) => signup(e)}
+            onClick={signup}
           >
             Submit
           </Button>
