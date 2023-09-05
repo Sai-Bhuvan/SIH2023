@@ -23,6 +23,15 @@ function RescueRegister() {
     }
   };
 
+  const previousbuttonhandle = (event) => {
+    event.preventDefault();
+    if (rescueslider == 0) {
+      setpreviousdisable(true);
+    } else {
+      setrescueslider(rescueslider - 1);
+    }
+  };
+
   async function register(event) {
     event.preventDefault();
 
@@ -92,6 +101,7 @@ function RescueRegister() {
   const [username, setUsername] = useState("");
   const [capacity, setcapacity] = useState();
   const [disablenext, setdisablenext] = useState(false);
+  const [previousdisable, setpreviousdisable] = useState(false);
 
   return (
     <>
@@ -255,6 +265,16 @@ function RescueRegister() {
               </Button>
             </div>
           )}
+
+          <Button
+            variant="outline-secondary"
+            className="mt-3 m-5"
+            onClick={previousbuttonhandle}
+            disabled={previousdisable}
+            hidden={rescueslider === 0 ? true : false}
+          >
+            Previous
+          </Button>
 
           <Button
             variant="outline-secondary"
