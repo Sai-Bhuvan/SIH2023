@@ -7,10 +7,20 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpass, setconfirmpass] = useState("");
-
+  const [rescueteam, setrescueteam] = useState(false);
   const [mobileno, setmobileno] = useState();
   const [disablecheck, setdisablecheck] = useState(true);
   const [authotp, setauthotp] = useState();
+  const [rescuecentername, setrescuecentername] = useState("");
+  const [address, setaddress] = useState("");
+  const [discription, setdiscription] = useState("");
+  const [rescueslider, setrescueslider] = useState(0);
+  const [specification, setspecification] = useState("");
+  const [calamities, setcalamities] = useState([]);
+  const [calamity, setcalamity] = useState("");
+  const [availability, setavailability] = useState(0);
+  const [capacity, setcapacity] = useState();
+  const [disablenext, setdisablenext] = useState(false);
 
   const handlesignup = (event) => {};
 
@@ -54,6 +64,21 @@ function SignUp() {
     }
   }
 
+  const addcalamities = async (event) => {
+    event.preventDefault();
+    setcalamities((calamities) => [...calamities, calamity]);
+    setcalamity("");
+  };
+
+  const nextbuttonhandle = (event) => {
+    event.preventDefault();
+    if (rescueslider == 2) {
+      setdisablenext(true);
+    } else {
+      setrescueslider(rescueslider + 1);
+    }
+  };
+
   return (
     <form onSubmit={handlesignup} className=" bg-slate-100  h-full w-full">
       <div className=" cols-span-3 p-4  text-center">
@@ -75,71 +100,249 @@ function SignUp() {
               <FaLinkedin />
             </div>
           </div>
-          {/* Inputs */}
-          <div className="flex flex-col items-center justify-center">
-            <div className="m-3">
-              <input
-                type="email"
-                className="rounded-md p-2  border  border-cyan-700 w-60"
-                placeholder="Email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              ></input>
-            </div>
-            <div className="m-3 ">
-              <input
-                type="text"
-                className="rounded-md p-2 border  border-cyan-700 w-60"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              ></input>
-            </div>
-            <div className="m-3 ">
-              <input
-                type="password"
-                className="rounded-md p-2 border  border-cyan-700 w-60"
-                placeholder="Confirm Password"
-                value={confirmpass}
-                onChange={(event) => setconfirmpass(event.target.value)}
-              ></input>
-            </div>
-            <div className="m-3 ">
-              <input
-                type="number"
-                className="rounded-md p-2 border  border-cyan-700 w-60"
-                placeholder="enter your mobile no"
-                value={mobileno}
-                onChange={(event) => setmobileno(event.target.value)}
-              ></input>
-            </div>
-            <div className="m-3 ">
-              <input
-                type="number"
-                className="rounded-md p-2 border  border-cyan-700 w-60"
-                placeholder="enter OTP"
-                value={authotp}
-                onChange={(event) => setauthotp(event.target.value)}
-              ></input>
-            </div>
-            <button
-              type="button"
-              className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
-              onClick={sendotp}
-            >
-              Send OTP
-            </button>
 
-            <button
-              type="submit"
-              onClick={signup}
-              disabled={disablecheck}
-              style={disablecheck ? { filter: "blur(1px)" } : {}}
-              className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
-            >
-              Sign Up
-            </button>
+          {/* Inputs */}
+
+          <div className="m-3">
+            <div className="form-check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value={rescueteam}
+                onChange={() => setrescueteam(!rescueteam)}
+                id="flexCheckDefault"
+              />
+              <label className="form-check-label" for="flexCheckDefault">
+                Are u Registering as Rescue Team
+              </label>
+            </div>
           </div>
+
+          {/* for user */}
+          {!rescueteam && (
+            <div className="flex flex-col items-center justify-center">
+              <div className="m-3">
+                <input
+                  type="email"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="text"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="password"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="Confirm Password"
+                  value={confirmpass}
+                  onChange={(event) => setconfirmpass(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="number"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="enter your mobile no"
+                  value={mobileno}
+                  onChange={(event) => setmobileno(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="number"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="enter OTP"
+                  value={authotp}
+                  onChange={(event) => setauthotp(event.target.value)}
+                ></input>
+              </div>
+              <button
+                type="button"
+                className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
+                onClick={sendotp}
+              >
+                Send OTP
+              </button>
+
+              <button
+                type="submit"
+                onClick={signup}
+                disabled={disablecheck}
+                style={disablecheck ? { filter: "blur(1px)" } : {}}
+                className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
+
+          {rescueslider === 0 && rescueteam && (
+            <div>
+              <div className="m-3">{`Step ${rescueslider + 1} / 3`}</div>
+              <div className="m-3">
+                <input
+                  type="text"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Enter name of rescue center"
+                  value={rescuecentername}
+                  onChange={(event) => setrescuecentername(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3">
+                <input
+                  type="email"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="text"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="Password"
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="password"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="Confirm Password"
+                  value={confirmpass}
+                  onChange={(event) => setconfirmpass(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3">
+                <input
+                  type="text"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Enter name of rescue center"
+                  value={address}
+                  onChange={(event) => setaddress(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3">
+                <input
+                  type="text"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Enter name of rescue center"
+                  value={discription}
+                  onChange={(event) => setdiscription(event.target.value)}
+                ></input>
+              </div>
+            </div>
+          )}
+
+          {rescueslider === 1 && rescueteam && (
+            <div>
+              <div className="m-3">{`Step ${rescueslider + 1} / 3`}</div>
+              <div className="m-3">
+                <input
+                  type="text"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Enter name of rescue center"
+                  value={specification}
+                  onChange={(event) => setspecification(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3">
+                <input
+                  type="email"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Email"
+                  value={calamity}
+                  onChange={(event) => setcalamity(event.target.value)}
+                ></input>
+              </div>
+
+              <button onClick={addcalamities}>Add calamity</button>
+
+              <div className="m-3">
+                <input
+                  type="number"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Enter name of rescue center"
+                  value={capacity}
+                  onChange={(event) => setcapacity(event.target.value)}
+                ></input>
+              </div>
+
+              <div className="m-3">
+                <input
+                  type="number"
+                  className="rounded-md p-2  border  border-cyan-700 w-60"
+                  placeholder="Enter name of rescue center"
+                  value={availability}
+                  onChange={(event) => setavailability(event.target.value)}
+                ></input>
+              </div>
+            </div>
+          )}
+
+          {rescueslider === 2 && rescueteam && (
+            <div className="flex flex-col items-center justify-center">
+              <div className="m-3">{`Step ${rescueslider + 1} / 3`}</div>
+              <div className="m-3 ">
+                <input
+                  type="number"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="enter your mobile no"
+                  value={mobileno}
+                  onChange={(event) => setmobileno(event.target.value)}
+                ></input>
+              </div>
+              <div className="m-3 ">
+                <input
+                  type="number"
+                  className="rounded-md p-2 border  border-cyan-700 w-60"
+                  placeholder="enter OTP"
+                  value={authotp}
+                  onChange={(event) => setauthotp(event.target.value)}
+                ></input>
+              </div>
+              <button
+                type="button"
+                className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
+                onClick={sendotp}
+              >
+                Send OTP
+              </button>
+
+              <button
+                type="submit"
+                onClick={signup}
+                disabled={disablecheck}
+                style={disablecheck ? { filter: "blur(1px)" } : {}}
+                className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
+              >
+                Sign Up
+              </button>
+            </div>
+          )}
+
+          {/* next button for slider */}
+          {rescueteam && (
+            <button
+              onClick={nextbuttonhandle}
+              className="button"
+              disabled={disablenext}
+            >
+              Next
+            </button>
+          )}
 
           <div className="flex gap-2 justify-center mb-4">
             <p className="text-blue-400 mt-4 text-lg">

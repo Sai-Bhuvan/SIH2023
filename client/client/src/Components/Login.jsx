@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rescueteam, setrescueteam] = useState(false);
 
   async function handleLogin(event) {
     event.preventDefault();
@@ -47,25 +48,68 @@ function Login() {
             </div>
           </div>
           {/* Inputs */}
+
           <div className="flex flex-col items-center justify-center">
             <div className="m-3">
-              <input
-                type="email"
-                className="rounded-md p-2  border  border-cyan-700 w-60"
-                placeholder="Email"
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-              ></input>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  value={rescueteam}
+                  onChange={setrescueteam(!rescueteam)}
+                  id="flexCheckDefault"
+                />
+                <label className="form-check-label" for="flexCheckDefault">
+                  Default checkbox
+                </label>
+              </div>
             </div>
-            <div className="m-3 ">
-              <input
-                type="password"
-                className="rounded-md p-2 border  border-cyan-700 w-60"
-                placeholder="Password"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-              ></input>
-            </div>
+            {!rescueteam && (
+              <div>
+                <div className="m-3">
+                  <input
+                    type="email"
+                    className="rounded-md p-2  border  border-cyan-700 w-60"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  ></input>
+                </div>
+                <div className="m-3 ">
+                  <input
+                    type="password"
+                    className="rounded-md p-2 border  border-cyan-700 w-60"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  ></input>
+                </div>
+              </div>
+            )}
+
+            {rescueteam && (
+              <div>
+                <div className="m-3">
+                  <input
+                    type="email"
+                    className="rounded-md p-2  border  border-cyan-700 w-60"
+                    placeholder="Email"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  ></input>
+                </div>
+                <div className="m-3 ">
+                  <input
+                    type="password"
+                    className="rounded-md p-2 border  border-cyan-700 w-60"
+                    placeholder="Password"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  ></input>
+                </div>
+              </div>
+            )}
+
             <button
               type="submit"
               className="button m-2 bg-blue-400 bg-opacity-40 text-blue-600 font-bold text-xl rounded-lg px-4 py-2"
