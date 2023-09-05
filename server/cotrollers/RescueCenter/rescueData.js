@@ -1,5 +1,5 @@
 const express = require("express");
-const Rescuer = require("../models/rescue");
+const Rescuer = require("../../models/rescue");
 
 module.exports.getRescueData = async (req, res) => {
   try {

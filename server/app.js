@@ -26,8 +26,7 @@ app.use(urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 8080;
-const dbUrl =
-  process.env.MONGODB_URL || "mongodb://localhost:27017/template-db";
+const dbUrl = process.env.MONGODB_URL;
 
 mongoose.connect(dbUrl, {
   useNewUrlParser: true,
@@ -76,8 +75,11 @@ const rescuerAuthRoutes = require("./router/AuthenticationRoutes/rescuer");
 app.use("/auth", userAuthRoutes);
 app.use("/auth", rescuerAuthRoutes);
 
-const rescueCentersDataRoutes = require("./router/rescueData");
-app.use("/", rescueCentersDataRoutes);
+const allRescueCentersDataRoutes = require("./router/RescueCenterRoutes/rescueData");
+app.use("/rescue", allRescueCentersDataRoutes);
+
+const rescueCenterDashboard = require("./router/RescueCenterRoutes/dashboard");
+app.use("/rescue", rescueCenterDashboard);
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

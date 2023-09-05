@@ -17,6 +17,6 @@ module.exports.register = async (req, res) => {
   } catch (e) {
     console.log(e.message);
     req.flash("error", e.message);
-    res.redirect("register");
+    res.redirect("/auth/user/register");
   }
 };
