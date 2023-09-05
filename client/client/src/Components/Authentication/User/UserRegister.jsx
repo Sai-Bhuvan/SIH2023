@@ -62,6 +62,10 @@ function UserRegister() {
           country_code: countryCode,
           phone_no: phoneNo,
           rescue_team_id: rescueTeamId,
+          location: {
+            type: "Point",
+            coordinates: [28.613975, -77.04245],
+          },
         }
       );
       console.log(response);
@@ -78,15 +82,9 @@ function UserRegister() {
 
       <Container className="d-flex justify-content-center mt-5">
         <Form onSubmit={handlesignup}>
-          <h3 className="mb-3 fs-1 fw-normal">Sign in </h3>
+          <h3 className="mb-3 fs-1 fw-normal">Sign up </h3>
           <Form.Group controlId="formGridPassword">
             <Form.Label>Username</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-            />
           </Form.Group>
 
           <Row className="mb-3">
@@ -162,8 +160,17 @@ function UserRegister() {
             </Col>
           </Row>
 
-          <Row className="mb-3">
-            <Col xs={4}>
+          <Row className="mb-3 d-flex justify-content-between">
+            <Col xs={8} className="ml-auto">
+              <Form.Group as={Col} controlId="formGridState">
+                <Form.Control
+                  type="text"
+                  placeholder="enter OTP"
+                  onChange={(e) => setauthotp(e.target.value)}
+                />
+              </Form.Group>
+            </Col>
+            <Col xs="auto" className="ml-auto">
               <Form.Group as={Col} controlId="formGridCity">
                 <Button
                   variant="secondary"
@@ -174,30 +181,23 @@ function UserRegister() {
                 </Button>
               </Form.Group>
             </Col>
+          </Row>
 
-            <Col>
-              <Form.Group as={Col} controlId="formGridState">
-                <Form.Control
-                  type="text"
-                  placeholder="enter OTP"
-                  onChange={(e) => setauthotp(e.target.value)}
-                />
-              </Form.Group>
+          <Form.Label className="text-muted mt-0 fs-6 ">{message}</Form.Label>
+
+          <Row className="d-flex justify-content-start">
+            <Col xs="auto" className="ml-auto">
+              <Button
+                variant="secondary"
+                type="submit"
+                className="mx-auto"
+                disabled={disablecheck}
+                onClick={signup}
+              >
+                Submit
+              </Button>
             </Col>
           </Row>
-          <Row>
-            <Form.Label className="text-muted mt-1">{message}</Form.Label>
-          </Row>
-
-          <Button
-            variant="secondary"
-            type="submit"
-            className="mx-auto"
-            disabled={disablecheck}
-            onClick={signup}
-          >
-            Submit
-          </Button>
         </Form>
       </Container>
     </>
