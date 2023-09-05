@@ -12,7 +12,7 @@ module.exports.register = async (req, res) => {
       phone_no,
       ...rest
     } = req.body;
-    console.log(username);
+    console.log(rest.location);
     const contact = { country_code, phone_no };
     const rescuer = new Rescuer({
       email,

@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import NavBar from "../../Navbar/Navbar";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Container from "react-bootstrap/Container";
+import { Container, Form, Button, Row, Col } from "react-bootstrap";
 import axios from "axios";
 const formStyle = {
   maxWidth: "400px", // Adjust the maximum width as needed
@@ -65,10 +63,13 @@ function UserLogin() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-
-          <Button variant="secondary" type="submit" className="mt-3">
-            Submit
-          </Button>
+          <Row className="d-flex justify-content-start mt-3">
+            <Col xs="auto" className="ml-auto">
+              <Button variant="secondary" type="submit">
+                Submit
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </Container>
     </>

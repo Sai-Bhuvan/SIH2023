@@ -19,8 +19,8 @@ module.exports.verify = async (req, res) => {
       from: "+1 984 355 8631",
       to: userPhoneNumber,
     })
-    .then((message) => res.send({ message: "Verification code sent 📩" }))
-    .catch((error) => res.send({ message: "please check your phone number" }));
+    .then((message) => res.send({ message: "Verification code sent ✅" }))
+    .catch((error) => res.send({ message: "Invalid phone numberr" }));
 };
 
 const generateVerification = () => {
