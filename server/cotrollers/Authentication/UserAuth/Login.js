@@ -2,7 +2,7 @@ const express = require("express");
 const User = require("../../../models/user");
 
 module.exports.login = async (req, res) => {
-  res.redirect("/");
+  res.send("logged in successfully");
 };
 
 module.exports.logout = (req, res, next) => {

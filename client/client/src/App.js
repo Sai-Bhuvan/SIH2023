@@ -18,6 +18,7 @@ import UserLogin from "./Components/Authentication/User/UserLogin";
 import UserRegister from "./Components/Authentication/User/UserRegister";
 
 export default function App() {
+  const optionsSet1 = ["Option A", "Option B", "Option C"];
   return (
     <Router>
       <Routes>
@@ -32,7 +33,10 @@ export default function App() {
         <Route path="/auth/user/login" element={<UserLogin />} />
         <Route path="/auth/user/register" element={<UserRegister />} />
         <Route path="/auth/rescue/login" element={<RescueLogin />} />
-        <Route path="/auth/rescue/register" element={<RescueRegister />} />
+        <Route
+          path="/auth/rescue/register"
+          element={<RescueRegister options={optionsSet1} />}
+        />
 
         <Route path="/" element={<Homepage />} />
       </Routes>

@@ -1,7 +1,8 @@
 
-POST  http://localhost:4000/auth/verify
+POST  http://localhost:4000/auth/user/login
 Content-Type: application/json
 
-{
-
+{   
+    "username":"nags",
+    "password":"123"
 }

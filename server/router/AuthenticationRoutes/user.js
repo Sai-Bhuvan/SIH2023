@@ -10,7 +10,7 @@ const { isVerified } = require("../../middleware");
 router.route("/user/login").post(
   passport.authenticate("local", {
     failureFlash: true,
-    failureRedirect: "/",
+    failureMessage: "failed to login",
   }),
   Login.login
 );
