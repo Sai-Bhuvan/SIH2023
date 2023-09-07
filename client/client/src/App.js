@@ -5,7 +5,6 @@ import React from "react";
 import UserLocation from "./Components/UserLocation";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import Rescuecenters from "./Components/Rescuecenters";
-import Homepage from "./Components/Homepage";
 import About from "./Components/Navbar/About";
 import Connect from "./Components/Navbar/Connect";
 import Map from "./Components/Map";
@@ -16,6 +15,7 @@ import RescueLogin from "./Components/Authentication/RescueCenter/RescueLogin";
 import RescueRegister from "./Components/Authentication/RescueCenter/RescueRegister";
 import UserLogin from "./Components/Authentication/User/UserLogin";
 import UserRegister from "./Components/Authentication/User/UserRegister";
+import RescueCenter from "./Components/Profile/RescueCenter";
 
 export default function App() {
   const optionsSet1 = ["Option A", "Option B", "Option C"];
@@ -23,11 +23,13 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/userlocation" element={<UserLocation />} />
-        <Route path="/home" element={<Map />} />
+        <Route path="/home" element={<Map url="rescuecenters" />} />
         <Route path="/rescuecenters" element={<Rescuecenters />} />
         <Route path="/about" element={<About />} />
         <Route path="/connect" element={<Connect />} />
-
+        //rescuecenter profile page
+        <Route path="/rescue/dashboard/:id" element={<RescueCenter />} />
+        // auth routes
         <Route path="/auth/login" element={<SignIn />} />
         <Route path="/auth/register" element={<SignUp />} />
         <Route path="/auth/user/login" element={<UserLogin />} />
@@ -37,7 +39,6 @@ export default function App() {
           path="/auth/rescue/register"
           element={<RescueRegister options={optionsSet1} />}
         />
-
         <Route path="/" element={<RescueRegister />} />
       </Routes>
     </Router>

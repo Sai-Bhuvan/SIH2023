@@ -43,6 +43,7 @@ function RescueRegister() {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation({ latitude, longitude });
+          setLocation({ latitude: 13, longitude: 77 });
         },
         (err) => {
           setError(err.message);
@@ -95,7 +96,7 @@ function RescueRegister() {
           address: address,
           description: description,
 
-          location: {
+          geometry: {
             type: "Point",
             coordinates: [location.latitude, location.longitude],
           },
@@ -253,7 +254,7 @@ function RescueRegister() {
                       "counseling",
                       "food and water",
                       "language assistance",
-                      "medical care",
+                      "medical",
                       "transportation",
                     ]}
                     setter={setServices}

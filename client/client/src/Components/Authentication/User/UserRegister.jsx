@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import NavBar from "../../Navbar/Navbar";
 import axios from "axios";
 import { Container, Form, Button, Row, Col } from "react-bootstrap";
@@ -20,8 +20,26 @@ function UserRegister() {
   const [phoneNo, setPhoneNo] = useState("");
   const [authotp, setauthotp] = useState("");
   const [sendOrResend, setSendOrResend] = useState("send");
-
+  const [location, setLocation] = useState();
+  const [error, setError] = useState(null);
   const handlesignup = (event) => {};
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          console.log(latitude, longitude);
+          setLocation({ latitude, longitude });
+        },
+        (err) => {
+          setError(err.message);
+        }
+      );
+    } else {
+      setError("Geolocation is not available in this browser.");
+    }
+  }, []);
+
   async function sendotp(event) {
     event.preventDefault();
     setSendOrResend("Resend");
@@ -64,7 +82,7 @@ function UserRegister() {
           rescue_team_id: rescueTeamId,
           location: {
             type: "Point",
-            coordinates: [28.613975, -77.04245],
+            coordinates: [location.latitude, location.longitude],
           },
         }
       );

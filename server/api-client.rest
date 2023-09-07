@@ -1,8 +1,2 @@
 
-POST  http://localhost:4000/auth/user/login
-Content-Type: application/json
-
-{   
-    "username":"nags",
-    "password":"123"
-}
+GET http://localhost:4000/rescue/dashboard/req/64f961c068d9484044d21210
