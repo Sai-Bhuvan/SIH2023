@@ -18,7 +18,7 @@ const RescueSchema = new mongoose.Schema(
     description: String,
 
     rest: {
-      location: {
+      geometry: {
         type: {
           type: String,
           enum: ["Point"],
