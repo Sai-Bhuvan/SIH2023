@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import { Link } from "react-router-dom";
+
 const NavBar = () => {
   const [logo, setlogo] = useState();
 
@@ -26,22 +27,21 @@ const NavBar = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Link</Nav.Link>
+            <Nav.Link href={<Link to={"/home"} />}>Home</Nav.Link>
+            <Nav.Link href={<Link to={"/"} />}>Map</Nav.Link>
+            <Nav.Link href={<Link to={"/about"} />}> About US</Nav.Link>
 
             <Nav.Link href="#" disabled>
               Link
             </Nav.Link>
           </Nav>
-          <Form className="d-flex">
-            <Form.Control
-              type="search"
-              placeholder="Search"
-              className="me-2 mapboxgl-ctrl-geocode"
-              aria-label="Search"
-            />
-            <Button variant="outline-success">Search</Button>
-          </Form>
+
+          <Button
+            variant="outline-success"
+            onClick={<Link to={"/User_Rescue_team"} />}
+          >
+            Sign Up / Sign IN
+          </Button>
         </Navbar.Collapse>
       </Container>
     </Navbar>

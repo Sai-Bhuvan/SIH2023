@@ -140,7 +140,7 @@ function RescueRegister() {
         <p className="text-muted">Step {pageNo} / 4</p>
         <Row>
           <Form onSubmit={handlesignup}>
-            {pageNo == 1 && (
+            {pageNo === 1 && (
               <div>
                 <Form.Group controlId="formGridPassword">
                   <Form.Label>Username</Form.Label>
@@ -205,7 +205,7 @@ function RescueRegister() {
                       type="submit"
                       className="mx-auto"
                       onClick={(e) => {
-                        if (pageNo != 4) setPageNo(pageNo + 1);
+                        if (pageNo !== 4) setPageNo(pageNo + 1);
                       }}
                     >
                       <svg
@@ -227,7 +227,7 @@ function RescueRegister() {
               </div>
             )}
 
-            {pageNo == 2 && (
+            {pageNo === 2 && (
               <div>
                 <Form.Group controlId="formGridPassword">
                   <Form.Label>Specialization</Form.Label>
@@ -291,7 +291,7 @@ function RescueRegister() {
                       type="submit"
                       className="mx-auto"
                       onClick={(e) => {
-                        if (pageNo != 1) setPageNo(pageNo - 1);
+                        if (pageNo !== 1) setPageNo(pageNo - 1);
                       }}
                     >
                       <svg
@@ -315,7 +315,7 @@ function RescueRegister() {
                       type="submit"
                       className="mx-auto"
                       onClick={(e) => {
-                        if (pageNo != 4) setPageNo(pageNo + 1);
+                        if (pageNo !== 4) setPageNo(pageNo + 1);
                       }}
                     >
                       <svg
@@ -337,7 +337,7 @@ function RescueRegister() {
               </div>
             )}
 
-            {pageNo == 3 && (
+            {pageNo === 3 && (
               <div>
                 <Form.Group controlId="formGridPassword">
                   <Form.Label>Supply and Resources</Form.Label>
@@ -414,7 +414,7 @@ function RescueRegister() {
                       type="submit"
                       className="mx-auto"
                       onClick={(e) => {
-                        if (pageNo != 1) setPageNo(pageNo - 1);
+                        if (pageNo !== 1) setPageNo(pageNo - 1);
                       }}
                     >
                       <svg
@@ -438,7 +438,7 @@ function RescueRegister() {
                       type="submit"
                       className="mx-auto"
                       onClick={(e) => {
-                        if (pageNo != 4) setPageNo(pageNo + 1);
+                        if (pageNo !== 4) setPageNo(pageNo + 1);
                       }}
                     >
                       <svg
@@ -460,7 +460,7 @@ function RescueRegister() {
               </div>
             )}
 
-            {pageNo == 4 && (
+            {pageNo === 4 && (
               <div>
                 <Form.Label>Mobile no</Form.Label>
                 <Row className="mb-3">
@@ -523,7 +523,7 @@ function RescueRegister() {
                       type="submit"
                       className="mx-auto"
                       onClick={(e) => {
-                        if (pageNo != 1) setPageNo(pageNo - 1);
+                        if (pageNo !== 1) setPageNo(pageNo - 1);
                       }}
                     >
                       <svg
