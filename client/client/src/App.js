@@ -9,6 +9,8 @@ import Homepage from "./Components/Homepage";
 import About from "./Components/Navbar/About";
 import Connect from "./Components/Navbar/Connect";
 import Map from "./Components/Map";
+import Chat from "./Components/Chat";
+
 export default function App() {
   const optionsSet1 = ["Option A", "Option B", "Option C"];
   return (
@@ -21,6 +23,9 @@ export default function App() {
         <Route path="/connect" element={<Connect />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
+
+        <Route path="/chat" element={<Chat />} />
+        
         <Route path="/" element={<SignUp />} />
       </Routes>
     </Router>
