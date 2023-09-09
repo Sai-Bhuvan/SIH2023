@@ -2,7 +2,14 @@ const User = require("../../../models/user");
 
 module.exports.register = async (req, res) => {
   try {
-    const { username, email, password, country_code, phone_no } = req.body;
+    const {
+      username,
+      email,
+      password,
+      country_code,
+      phone_no,
+      rescue_team_id,
+    } = req.body;
 
     const contact = { country_code, phone_no };
     const user = new User({ email, username, contact });
@@ -12,7 +19,7 @@ module.exports.register = async (req, res) => {
         return next(err);
       }
       req.flash("success", "Registered Successfully");
-      res.send("account created succefully");
+      res.redirect("/");
     });
   } catch (e) {
     console.log(e.message);

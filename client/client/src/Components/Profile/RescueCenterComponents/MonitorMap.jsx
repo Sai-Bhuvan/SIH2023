@@ -2,13 +2,13 @@ import React from "react";
 import { useRef, useEffect, useState } from "react";
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 import "mapbox-gl/dist/mapbox-gl.css";
-import NavBar from "./Navbar/Navbar";
+
 import Card from "react-bootstrap/Card";
 import axios from "axios";
 import MapboxGeocoder from "mapbox-gl-geocoder";
 import RainLayer from "mapbox-gl-rain-layer";
 
-function Map(props) {
+function MonitorMap(props) {
   mapboxgl.accessToken =
     "pk.eyJ1IjoibmFnYXJhai1wb29qYXJpIiwiYSI6ImNsOGw1M3d6ZjF3bmIzdXF4dzJzbDI0OXMifQ.YKQSwfcvRCUlD4Vx0pKpyQ";
 
@@ -18,12 +18,7 @@ function Map(props) {
   const [zoom, setZoom] = useState(9);
   const [instructionDisplay, setInstructionDisplay] = useState(false);
   const [locations, setLocations] = useState([]);
-  const [showChat, setShowChat] = useState(false);
-  const [category, setCategory] = useState("");
 
-  const toggleChat = () => {
-    setShowChat(!showChat);
-  };
   useEffect(() => {
     if (map && locations.length > 0) {
       const geoJsonFeatures = locations.map((location) => ({
@@ -44,8 +39,6 @@ function Map(props) {
           accessToken: mapboxgl.accessToken,
           mapboxgl: mapboxgl,
           marker: true,
-          countries: "IN",
-          trackProximity: true,
           placeholder: "Search for places",
           render: function (item) {
             return '<div class="custom-geocoder-item">' + item + "</div>";
@@ -64,7 +57,6 @@ function Map(props) {
           map.current.setCenter(selectedLocation.geometry.coordinates);
         });
         //map.current.addControl(geocoder);
-
         map.current.on("load", () => {
           map.current.addSource("single-point", {
             type: "geojson",
@@ -80,7 +72,7 @@ function Map(props) {
             type: "circle",
             paint: {
               "circle-radius": 10,
-              "circle-color": "#448ee4",
+              "circle-color": "#FF0E0E",
             },
           });
 
@@ -167,38 +159,6 @@ function Map(props) {
           },
         });
 
-        map.current.on("click", "clusters", (e) => {
-          const features = map.current.queryRenderedFeatures(e.point, {
-            layers: ["clusters"],
-          });
-          const clusterId = features[0].properties.cluster_id;
-          map.current
-            .getSource("earthquakes")
-            .getClusterExpansionZoom(clusterId, (err, zoom) => {
-              if (err) return;
-
-              map.current.easeTo({
-                center: features[0].geometry.coordinates,
-                zoom: zoom,
-              });
-            });
-        });
-
-        map.current.on("click", "unclustered-point", (e) => {
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const id = e.features[0].properties.id;
-          const centername = e.features[0].properties.centername;
-
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(`<a href="/rescue/dashboard/${id}"> view </a>`)
-            .addTo(map.current);
-        });
-
         map.current.on("mouseenter", "clusters", () => {
           map.current.getCanvas().style.cursor = "pointer";
         });
@@ -235,7 +195,7 @@ function Map(props) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/rescue/${props.url}`
+          `http://localhost:4000/rescue/${props.url}/${props.id}`
         );
         const { data } = response;
         setLocations(data);
@@ -387,9 +347,6 @@ function Map(props) {
   return (
     <>
       <div>
-        <NavBar />
-      </div>
-      <div>
         <Card
           body
           id="instructions"
@@ -401,21 +358,8 @@ function Map(props) {
         ></Card>
         <div ref={mapContainer} className="map-container" />
       </div>
-      <div>
-        <button className="chat-button" onClick={toggleChat}>
-          Chat
-        </button>
-        {showChat && (
-          <iframe
-            className="chat-iframe"
-            id="chat-iframe"
-            allow="microphone;"
-            src="https://console.dialogflow.com/api-client/demo/embedded/7130a9d5-5926-40a1-ab4c-732d73178eab"
-          ></iframe>
-        )}
-      </div>
     </>
   );
 }
 
-export default Map;
+export default MonitorMap;

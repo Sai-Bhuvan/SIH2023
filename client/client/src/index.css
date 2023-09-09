@@ -1,16 +1,170 @@
 .map-container {
-  height: 97vh;
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  /* You can adjust the z-index as needed */
 }
 
-.sidebar {
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #fff;
-  padding: 6px 12px;
-  font-family: monospace;
-  z-index: 1;
+#instructions {
   position: absolute;
-  top: 0;
-  left: 0;
-  margin: 12px;
+  margin: 20px;
+  width: 25%;
+  top: 60px; /* Adjust the top value to leave space for the navbar */
+  left: 20px; /* Adjust the left value to position it to the left side */
+  bottom: 20%; /* Adjust the bottom value as needed */
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: scroll;
+  font-family: sans-serif;
+  z-index: 2; /* Ensure it's above the map layer */
+  @media (min-width: 768px) {
+    width: 25%; /* Take up 25% of the width on screens wider than 768px */
+    left: 20px; /* Add some space on the left side */
+  }
+}
+
+/* Mapbox Geocoder Search Bar Styles */
+/* Mapbox Geocoder Container */
+.mapboxgl-ctrl-geocoder {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  color: #333;
+  outline: none;
+}
+
+/* Search Results Dropdown */
+.mapboxgl-ctrl-geocoder .suggestions {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Search Result Items */
+.mapboxgl-ctrl-geocoder .suggestions .suggestion {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Highlight on Hover */
+.mapboxgl-ctrl-geocoder .suggestions .suggestion:hover {
+  background-color: #636262;
+}
+
+/* Style the selected suggestion (optional) */
+.mapboxgl-ctrl-geocoder .suggestions .suggestion.selected {
+  background-color: #0074d9; /* Change to your desired highlight color */
+  color: #fff;
+}
+
+.iframe-container {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  right: 1%; /* Ensure it's on top of everything */
+}
+
+.chat-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 10000;
+  background-color: #009688;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+/* Style for the iframe itself */
+iframe {
+  width: 300px;
+  height: 400px;
+  border-radius: 2%; /* Remove iframe border */
+  position: fixed;
+  bottom: 1%;
+  right: 1%;
+  z-index: 9999; /* Ensure it's on top of everything */
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Background color with opacity */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Add a shadow */
+}
+
+/* Style the input field of the search bar */
+.mapboxgl-ctrl-geocoder input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #fff;
+}
+
+/* Style the search results dropdown */
+.mapboxgl-ctrl-geocoder .suggestions {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style individual search results */
+.mapboxgl-ctrl-geocoder .suggestions .suggestion {
+  padding: 10px;
+  cursor: pointer;
+}
+
+/* Style the selected suggestion */
+.mapboxgl-ctrl-geocoder .suggestions .suggestion.active {
+  background-color: #009688;
+  color: #fff;
+}
+
+/* Style the clear button inside the input field */
+.mapboxgl-ctrl-geocoder .geocoder-icon-close {
+  color: #ccc;
+  cursor: pointer;
+}
+
+/* Style the clear button on hover */
+.mapboxgl-ctrl-geocoder .geocoder-icon-close:hover {
+  color: #009688;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+/* Style the close button on hover */
+.close-button:hover {
+  color: #009688;
 }

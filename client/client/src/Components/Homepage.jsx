@@ -1,12 +1,14 @@
 import React from "react";
 
-import Navbar from "./Navbar";
+import NavBar from "./Navbar/Navbar";
+import Map from "./Map";
 
 function Homepage() {
   return (
-    <div>
-      <Navbar />
-    </div>
+    <>
+      <NavBar />
+      <Map></Map>
+    </>
   );
 }
 
