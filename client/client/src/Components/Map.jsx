@@ -16,259 +16,48 @@ function Map(props) {
   const map = useRef(null);
   const [location, setLocation] = useState([0, 0]);
   const [zoom, setZoom] = useState(9);
-  const [instructionDisplay, setInstructionDisplay] = useState(false);
-  const [locations, setLocations] = useState([]);
-  const [showChat, setShowChat] = useState(false);
-  const [category, setCategory] = useState("");
 
   const toggleChat = () => {
     setShowChat(!showChat);
   };
   useEffect(() => {
-    if (map && locations.length > 0) {
-      const geoJsonFeatures = locations.map((location) => ({
-        type: "Feature",
-        properties: {
-          id: location._id,
-          centername: location.username,
-        },
-        geometry: {
-          type: "Point",
-          coordinates: [...location.rest.geometry.coordinates.reverse(), 0.0],
-        },
-      }));
-
-      console.log(geoJsonFeatures);
-      map.current.on("load", () => {
-        const geocoder = new MapboxGeocoder({
-          accessToken: mapboxgl.accessToken,
-          mapboxgl: mapboxgl,
-          marker: true,
-          countries: "IN",
-          trackProximity: true,
-          placeholder: "Search for places",
-          render: function (item) {
-            return '<div class="custom-geocoder-item">' + item + "</div>";
-          },
-        });
-
-        let marker = null;
-        geocoder.on("result", function (event) {
-          const selectedLocation = event.result;
-          if (marker) {
-            marker.remove();
-          }
-          marker = new mapboxgl.Marker()
-            .setLngLat(selectedLocation.geometry.coordinates)
-            .addTo(map.current);
-          map.current.setCenter(selectedLocation.geometry.coordinates);
-        });
-        //map.current.addControl(geocoder);
-
-        map.current.on("load", () => {
-          map.current.addSource("single-point", {
-            type: "geojson",
-            data: {
-              type: "FeatureCollection",
-              features: [],
-            },
-          });
-
-          map.current.addLayer({
-            id: "point",
-            source: "single-point",
-            type: "circle",
-            paint: {
-              "circle-radius": 10,
-              "circle-color": "#448ee4",
-            },
-          });
-
-          geocoder.on("result", (event) => {
-            map.current
-              .getSource("single-point")
-              .setData(event.result.geometry);
-          });
-        });
-
-        const rainLayer = new RainLayer({
-          id: "rain",
-          source: "rainviewer",
-          scale: "noaa",
-        });
-        map.current.addLayer(rainLayer);
-
-        const legendHTML = rainLayer.getLegendHTML();
-
-        rainLayer.on("refresh", (data) => {
-          console.log(data.timestamp);
-        });
-
-        map.current.addSource("earthquakes", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: geoJsonFeatures,
-          },
-          cluster: true,
-          clusterMaxZoom: 14,
-          clusterRadius: 150,
-        });
-
-        map.current.addLayer({
-          id: "clusters",
-          type: "circle",
-          source: "earthquakes",
-          filter: ["has", "point_count"],
-          paint: {
-            "circle-color": [
-              "step",
-              ["get", "point_count"],
-              "#BCF7C7",
-              50,
-              "#f1f075",
-              100,
-              "#f28cb1",
-            ],
-            "circle-radius": [
-              "step",
-              ["get", "point_count"],
-              20,
-              50,
-              30,
-              100,
-              40,
-            ],
-          },
-        });
-
-        map.current.addLayer({
-          id: "cluster-count",
-          type: "symbol",
-          source: "earthquakes",
-          filter: ["has", "point_count"],
-          layout: {
-            "text-field": ["get", "point_count_abbreviated"],
-            "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-            "text-size": 12,
-          },
-        });
-
-        map.current.addLayer({
-          id: "unclustered-point",
-          type: "circle",
-          source: "earthquakes",
-          filter: ["!", ["has", "point_count"]],
-          paint: {
-            "circle-color": "#BCF7C7",
-            "circle-radius": 10,
-            "circle-stroke-width": 3,
-            "circle-stroke-color": "#fff",
-          },
-        });
-
-        map.current.on("click", "clusters", (e) => {
-          const features = map.current.queryRenderedFeatures(e.point, {
-            layers: ["clusters"],
-          });
-          const clusterId = features[0].properties.cluster_id;
-          map.current
-            .getSource("earthquakes")
-            .getClusterExpansionZoom(clusterId, (err, zoom) => {
-              if (err) return;
-
-              map.current.easeTo({
-                center: features[0].geometry.coordinates,
-                zoom: zoom,
-              });
-            });
-        });
-
-        map.current.on("click", "unclustered-point", (e) => {
-          const coordinates = e.features[0].geometry.coordinates.slice();
-          const id = e.features[0].properties.id;
-          const centername = e.features[0].properties.centername;
-
-          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-          }
-
-          new mapboxgl.Popup()
-            .setLngLat(coordinates)
-            .setHTML(`<a href="/rescue/dashboard/${id}"> view </a>`)
-            .addTo(map.current);
-        });
-
-        map.current.on("mouseenter", "clusters", () => {
-          map.current.getCanvas().style.cursor = "pointer";
-        });
-        map.current.on("mouseleave", "clusters", () => {
-          map.current.getCanvas().style.cursor = "";
-        });
-      });
-    }
     if (map.current) return;
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/nagaraj-poojari/clmbfmxxu018q01pb3fck067y",
-      center: [76, 14],
+      style: "mapbox://styles/mapbox/outdoors-v12",
+      center: [lng, lat],
       zoom: zoom,
     });
 
-    const geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
-      trackUserLocation: true,
+    const marker = new mapboxgl.Marker({
+      color: "#FF0000",
+    })
+      .setLngLat([76, 14])
+      .setPopup(new mapboxgl.Popup().setHTML("<h1>Hello World!</h1>"))
+      .addTo(map.current);
+
+    const nav = new mapboxgl.NavigationControl({
+      visualizePitch: true,
     });
+    map.current.addControl(nav, "bottom-right");
+    const start = [76, 14];
 
-    map.current.addControl(geolocate);
-
-    geolocate.on("geolocate", (event) => {
-      const { latitude, longitude } = event.coords;
-      setLocation([longitude, latitude]);
-    });
-  }, [map.current, locations]);
-
-  useEffect(() => {
-    // Fetch location data from your backend
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:4000/rescue/${props.url}`
-        );
-        const { data } = response;
-        setLocations(data);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching data from the backend:", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  useEffect(() => {
-    if (location[0] != 0) {
-      const nav = new mapboxgl.NavigationControl({
-        visualizePitch: true,
-      });
-      async function getRoute(end) {
-        const query = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/cycling/${location[0]},${location[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
-          { method: "GET" }
-        );
-        const json = await query.json();
-        const data = json.routes[0];
-        const route = data.geometry.coordinates;
-        const geojson = {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates: route,
-          },
-        };
+    async function getRoute(end) {
+      const query = await fetch(
+        `https://api.mapbox.com/directions/v5/mapbox/cycling/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=${mapboxgl.accessToken}`,
+        { method: "GET" }
+      );
+      const json = await query.json();
+      const data = json.routes[0];
+      const route = data.geometry.coordinates;
+      const geojson = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "LineString",
+          coordinates: route,
+        },
+      };
 
         if (map.current.getSource("route")) {
           map.current.getSource("route").setData(geojson);
@@ -389,32 +178,8 @@ function Map(props) {
       <div>
         <NavBar />
       </div>
-      <div>
-        <Card
-          body
-          id="instructions"
-          className={
-            instructionDisplay
-              ? "bg-dark text-white "
-              : "bg-dark text-white d-none"
-          }
-        ></Card>
-        <div ref={mapContainer} className="map-container" />
-      </div>
-      <div>
-        <button className="chat-button" onClick={toggleChat}>
-          Chat
-        </button>
-        {showChat && (
-          <iframe
-            className="chat-iframe"
-            id="chat-iframe"
-            allow="microphone;"
-            src="https://console.dialogflow.com/api-client/demo/embedded/7130a9d5-5926-40a1-ab4c-732d73178eab"
-          ></iframe>
-        )}
-      </div>
-    </>
+      <div ref={mapContainer} className="map-container" />
+    </div>
   );
 }
 
